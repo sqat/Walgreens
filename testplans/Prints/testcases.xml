@@ -1,0 +1,1529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcases xmlns="http://www.snapfish.com/selenium">
+    
+    <planDescription>Verifying prints order, reorder, with credits, coupons in all scenarios</planDescription>
+    
+    <testcase id="DEP-LOGIN" clearcookies="true" depends="DEP-LOGOUT_WG">
+         <description>login to site with valid credentials</description>
+         <instructions>
+            <open sleeptime="5000">/login</open>
+            <!-- <type id="USER_EMAIL_ADDRESS" persist="login_email_id">wgprints_sqat@in.com</type> -->
+            <emailtype id="USER_EMAIL_ADDRESS" testaccount="true" category="normal_account" persist="login_email_id"></emailtype>
+            <type id="USER_PASSWORD">sfqatest12</type>
+            <click id="LOGIN_BTN"/>
+         </instructions>
+         <verify>
+             <element type="title">.*Homepage.*|.*Welcome.*</element>
+         </verify>
+    </testcase>
+    <testcase id="DEP-LOGIN_FOR_FB_CASES" clearcookies="true" depends="DEP-LOGOUT_WG">
+         <description>login to site with valid credentials</description>
+         <instructions>
+            <open sleeptime="5000">/login</open>
+            <!-- <type id="USER_EMAIL_ADDRESS" persist="login_email_id">wagprints_sqat_fb@in.com</type> -->
+            <emailtype id="USER_EMAIL_ADDRESS" testaccount="true" category="fbaccess" persist="login_email_id"></emailtype>
+            <type id="USER_PASSWORD">sfqatest12</type>
+            <click id="LOGIN_BTN"/>
+         </instructions>
+         <verify>
+             <element type="title">.*Homepage.*|.*Welcome.*</element>
+         </verify>
+    </testcase>
+        
+    <testcase id="DEP-LOWRES_LOGIN" clearcookies="true" depends="DEP-LOGOUT_WG">
+         <description>login with the account which has low res images</description>
+         <instructions>
+            <open title=".*Digital Prints, Photo Gifts, Free Sharing.*">/login</open>
+            <!-- sfqatestauto@gmail.com, sfqatest123 -->
+            <!-- <type id="USER_EMAIL_ADDRESS" persist="login_email_id">wgsqatlowres@in.com</type> -->
+            <emailtype id="USER_EMAIL_ADDRESS" testaccount="true" category="lowres" persist="login_email_id"></emailtype>
+            <type id="USER_PASSWORD">sfqatest12</type>
+            <click id="LOGIN_BTN"/>
+         </instructions>
+         <verify>
+             <element type="title">.*Homepage.*|.*Welcome.*</element>
+         </verify>
+    </testcase>
+    
+    <!-- The below test cases should log in to the site only with Pod1 account -->
+    <testcase id="DEP-LOGIN_POD1" clearcookies="true" depends="DEP-LOGOUT_WG">
+         <description>login to site with valid credentials pod1 account</description>
+         <instructions>
+            <open title=".*Digital Prints, Photo Gifts, Free Sharing.*">/login</open>
+            <!-- <type id="USER_EMAIL_ADDRESS" persist="login_email_id">wgcollagegifts@in.com</type> -->
+            <emailtype id="USER_EMAIL_ADDRESS" testaccount="true" category="pod1" persist="login_email_id"></emailtype>
+            <type id="USER_PASSWORD">sfqatest12</type>
+            <click id="LOGIN_BTN"/>
+         </instructions>
+         <verify>
+             <element type="title">.*Homepage.*|.*Welcome.*</element>
+            <element type="element" id="SIGN_OUT_LINK"></element>
+<!--              <element type="url">pod1</element> -->
+         </verify>
+    </testcase>
+    
+    <!-- The below test cases should log in to the site only with Pod1 account -->
+    <testcase id="DEP-LOGIN_POD2" clearcookies="true" depends="DEP-LOGOUT_WG">
+         <description>login to site with valid credentials Pod2 account</description>
+         <instructions>
+            <open title=".*Digital Prints, Photo Gifts, Free Sharing.*">/login</open>
+            <!-- <type id="USER_EMAIL_ADDRESS" persist="login_email_id">wgcollagegifts2@in.com</type> -->
+            <emailtype id="USER_EMAIL_ADDRESS" testaccount="true" category="pod2" persist="login_email_id"></emailtype>
+            <type id="USER_PASSWORD">sfqatest12</type>
+            <click id="LOGIN_BTN"/>
+         </instructions>
+         <verify>
+             <element type="title">.*Homepage.*|.*Welcome.*</element>
+            <element type="element" id="SIGN_OUT_LINK"></element>
+             <!-- <element type="url">pod2</element> -->
+         </verify>
+    </testcase>
+    
+    <testcase id="DEP-NAV_TO_LOGIN_LAYER_PRINTS_FLOW" clearcookies="true">
+        <description>Navigating to login layer by clicking on reprints tile in prints store page</description>
+        <instructions>
+            <!-- <open sleeptime="5000">/welcome</open>
+            <click id="PRINTS_TAB"></click> -->
+            <open sleeptime="5000">/storepage/storePageId=Print</open>
+            <click id="REPRINTS_TILE" sleeptime="5000" pageload="false" visible="true"></click>
+            <click id="CREATE_NOW_BTN" optional="true"></click>
+            <selectframe id="LOGIN_LAYER_NAME"></selectframe>
+            <click id="LOGIN_LINK_REGISTRATION_LAYER" optional="true" pageload="false"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="LOGIN_BTN_LOGIN_LAYER"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-LOGIN_FROM_LOGIN_LAYER" depends="DEP-NAV_TO_LOGIN_LAYER_PRINTS_FLOW">
+        <description>Log in to the site from login layer in prints logged out flow </description>
+        <instructions>
+            <!-- <type id="USER_NAME_TXTFLD_LOGIN_LAYER">wgprints_sqat@in.com</type> -->
+            <emailtype id="USER_NAME_TXTFLD_LOGIN_LAYER" testaccount="true" category="normal_account" persist="login_email_id"></emailtype>
+            <type id="PASSWORD_TXTFLD_LOGIN_LAYER">sfqatest12</type>
+            <click id="LOGIN_BTN_LOGIN_LAYER"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="FIRST_ALBUM_IMG"></element>
+            <element type="element" id="ADD_TO_CART_REPRINTS_FLOW"></element>
+        </verify>
+    </testcase>
+    
+    
+    <testcase id="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE">
+        <description>Navigating to cart page from interstitial page</description>
+        <instructions>
+            <click id="PROCEED_TO_CHECKOUT" optional="true" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <!-- Add friends album photos to cart -->
+    <testcase id="DEP-NAV_TO_PRINTS_DEDICATED_PAGE_SHARED_PRINTS">
+        <description>Add prints to cart</description>
+        <instructions>
+            <!-- <open>/home</open>
+            <click id="PRINTS_TAB" visible="true"></click> -->
+            <!-- <open sleeptime="5000">/storepage/storePageId=Print</open>
+            <click id="REPRINTS_TILE" visible="true"></click> -->
+            <open sleeptime="5000">/reprintsphotoselector/</open>
+            <click id="FRIENDS_ALBUMS_TAB" pageload="false" visible="true"></click>
+            <click id="SELECT_FRIENDS_ALBUM" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" visible="true"></click>
+            <!--<click id="SELECT_SECOND_PHOTO" pageload="false"></click>-->
+            <click id="ADD_TO_CART_REPRINTS_FLOW" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="text" id="4X6_PRINTS_PRICE_DEDICATED_PAGE" persist="4x6_prints_price"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-ADD_SHARED_PRINTS_TO_CART_STORE_PAGE" depends="DEP-NAV_TO_PRINTS_DEDICATED_PAGE_SHARED_PRINTS">
+        <instructions>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+            <click id="PROCEED_TO_CHECKOUT" optional="true" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <testcase id="DEP-PERSIST_ALL_PRINT_PRICES">
+        <description>Persisting all print prices</description>
+        <verify>
+            <element type="text" id="5X7_PRINTS_PRICE_DEDICATED_PAGE" persist="5x7_print_price"></element>
+            <element type="text" id="8X10_PRINTS_PRICE_DEDICATED_PAGE" persist="8x10_print_price"></element>
+            <element type="text" id="WALLET_PRINTS_PRICE_DEDICATED_PAGE" persist="walletset_print_price"></element>
+            <element type="text" id="FAMILY_PACK_PRINTS_PRICE_DEDICATED_PAGE" persist="familypack_print_price"></element>
+            <element type="text" id="ULTIMATE_PRINTS_PRICE_DEDICATED_PAGE" persist="ultimate_value_print_price"></element>
+        </verify>
+    </testcase>
+    
+    <!-- Add 5x7 prints to cart -->
+    <testcase id="DEP-NAV_TO_PRINTS_DEDICATED_PAGE" depends="DEP-ADD_PRINTS_TO_CART_STORE_PAGE">
+    	<description>Navigating to prints dedicated page by clicking on edit link in cart page</description>
+    	<instructions>
+    		<click id="EDIT_ORDER_AND_SIZES_LINK_CART_PAGE" sleeptime="3000"></click>
+    	</instructions>
+    	<verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="text" id="4X6_PRINTS_PRICE_DEDICATED_PAGE" persist="4x6_prints_price"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-ADD_5X7_PRINTS_TO_CART_STORE_PAGE" dependsequence="DEP-PERSIST_ALL_PRINT_PRICES,DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description></description>
+        <instructions>
+            <type id="4X6_PRINTS_TXTFLD">0</type>
+            <type id="5X7_PRINTS_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="text">5x7 Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- Add 8X10 print to cart -->
+    <testcase id="DEP-ADD_8X10_PRINTS_TO_CART_STORE_PAGE" dependsequence="DEP-PERSIST_ALL_PRINT_PRICES,DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description></description>
+        <instructions>
+            <type id="4X6_PRINTS_TXTFLD">0</type>
+            <type id="8X10_PRINTS_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="text">8x10 Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- Add Wallet set print to cart -->
+    <testcase id="DEP-ADD_WALLET_PRINT_TO_CART_STORE_PAGE" dependsequence="DEP-PERSIST_ALL_PRINT_PRICES,DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description>Navigating to cart page by selecting 5x7 print in prints dedicated page</description>
+        <instructions>
+            <type id="4X6_PRINTS_TXTFLD">0</type>
+            <type id="WALLET_SET_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="text">Wallet set.(s.)|Wallet Print</element>
+        </verify>
+    </testcase>
+    
+    <!-- Add Family pack print to cart -->
+    <testcase id="DEP-ADD_FAMILY_PACK_PRINT_TO_CART_STORE_PAGE" dependsequence="DEP-PERSIST_ALL_PRINT_PRICES,DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description>Navigating to cart page by selecting 5x7 print in prints dedicated page</description>
+        <instructions>
+        	<type id="4X6_PRINTS_TXTFLD">0</type>
+            <click id="MORE_SIZES" visible="true"></click>
+            <type id="FAMILY_PACK_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="text">Family Pack.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- Add Ultimate value pack print to cart -->
+    <testcase id="DEP-ADD_ULTIMATE_VALUE_PACKS_PRINT_TO_CART" dependsequence="DEP-PERSIST_ALL_PRINT_PRICES,DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description>Navigating to cart page by selecting 5x7 print in prints dedicated page</description>
+         <instructions>
+             <type id="4X6_PRINTS_TXTFLD">0</type>
+             <click id="MORE_SIZES" visible="true"></click>
+            <type id="ULTIMATE_VALUE_PACK_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="text">Ultimate Value Pack.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <testcase id="DEP-ADD_ALL_PRINT_SIZES_TO_CART" depends="DEP-NAV_TO_PRINTS_DEDICATED_PAGE">
+        <description>Adding all print sizes(4x6,5x7,8x10,wallet,family pack,ultimate value pack) to cart</description>
+        <instructions>
+           <type id="5X7_PRINTS_TXTFLD">1</type>
+            <type id="8X10_PRINTS_TXTFLD">1</type>
+            <type id="WALLET_SET_TXTFLD">1</type>
+            <click id="MORE_SIZES" visible="true"></click>
+            <type id="FAMILY_PACK_TXTFLD">1</type>
+            <type id="ULTIMATE_VALUE_PACK_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*|.*Products Added to Your Cart.*</element>
+            <element type="if" condition="title" title=".*Products Added to Your Cart.*" executetestcase="DEP-NAVIGATE_TO_CART_FROM_INTERSTITIAL_PAGE"></element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    
+    
+    <!-- CASE 1: Verify the 'remove' link for Prints in shopping cart.
+    Expected Result:
+    		cart should have remove link(Functionality also)
+     -->
+    <testcase id="1" cobrand="walgreens" dependsequence="DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the 'remove' link for Prints in shopping cart.</description>
+        <instructions>
+            <click id="REMOVE_LINK_CART_PAGE" pageload="false" sleeptime="3000"></click>
+            <selectframe id="REMOVE_PRINT_LAYER_NAME"></selectframe>
+            <click id="REMOVE_FROM_CART_REMOVE_LAYER" sleeptime="3000"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Empty Cart.*</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 2:  Check the 'order total' amount displayed  in shopping cart.
+    Expected Result:
+            order amount should be correct
+     -->    
+    <testcase id="2" cobrand="walgreens" dependsequence="DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check the 'order total' amount displayed  in shopping cart.</description>
+        <instructions>
+        	<click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="compareNumbers" id="SUBTOTAL_VALUE_CART_PAGE" persistId="4x6_prints_price"></element>
+        </verify>
+    </testcase>
+    
+    <!-- Case 3:  Verify the 'empty cart' link in shopping cart.
+    Expected Result:
+         empty cart link should empty the cart content
+     -->
+    <testcase id="DEP-CLICK_ON_EMPTY_CART_3RD_CASE">
+        <instructions>
+            <click id="EMPTYCART_LINK_WG" pageload="false" sleeptime="3000">empty cart</click>
+        </instructions>
+        <verify>
+          <element type="title" popup="true">.*Cancel Order.*</element>
+       </verify>  
+    </testcase>
+    <testcase id="3" cobrand="walgreens" popup="true" dependsequence="DEP-CLICK_ON_EMPTY_CART_3RD_CASE,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the 'empty cart' link in shopping cart.</description>
+        <instructions>
+           <click id="REMOVE_ORDER_EMPTY_CART_POPUP" pageload="false"/>
+       </instructions>
+       <verify>
+           <element type="title">.*Empty Cart.*</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 4:Verify the Print size text displayed  beside the  print thumbnail.
+    Expected Result:
+          size should be displayed
+     -->
+    <testcase id="4" cobrand="walgreens" dependsequence="DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-LOGIN">
+        <description>Verify the Print size text displayed  beside the  print thumbnail.</description>
+        <verify>
+           <element type="title">.*Your Cart.*</element>
+           <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+           <element type="text">4x6 Print.(s.)|4x6 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 5: Verify the Successful creation of 4x6 Prints (verify for pickup).
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="5" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 4x6 Prints (verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 6: Verify the Successful creation of 4x6 Prints (verify for Mail order).
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="6" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 4x6 Prints (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 7: Verify the Successful creation of 5x7 Prints (verify for pickup).
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="7" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_5X7_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 5x7 Prints (verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">5x7 print.(s.)|5x7 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 8: Verify the Successful creation of 5x7 Prints (verify for Mail order).
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="8" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_5X7_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 5x7 Prints (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">5x7 print.(s.)|5x7 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 9: Verify the Successful creation of 8x10 Prints (verify for pickup).  
+    Expected Result:
+           order should be placed successfully
+     -->
+    <testcase id="9" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_8X10_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 8x10 Prints (verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">8x10 print.(s.)|8x10 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASe 10: Verify the Successful creation of 8x10 Prints (verify for Mail order).
+    Expected Result:
+            order should be placed successfully
+     -->
+    <testcase id="10" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_8X10_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of 8x10 Prints (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">8x10 print.(s.)|8x10 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 11: Verify the Successful creation of Wallet print order (verify for pickup). 
+    Expected Result:
+            order should be placed successfully
+     -->
+    <testcase id="11" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_WALLET_PRINT_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of Wallet print order (verify for pickup). </description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">4x6 wallet set.(s.)|4x6 Wallet Set.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 12: Verify the Successful creation of Wallet print order (verify for Mail order).
+    Expected Result:
+         order should be placed successfully
+     -->
+    <testcase id="12" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_WALLET_PRINT_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of Wallet print order (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 wallet set.(s.)|4x6 Wallet Set.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 13: Verify the Successful creation of family pack print order (verify for pickup). 
+    Expected Result:
+           order should be placed successfully
+     -->
+    <testcase id="13" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_FAMILY_PACK_PRINT_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of family pack print order (verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">Family pack.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 14:  Verify the Successful creation of family pack print order (verify for Mail order).
+    Expected Result:
+           order should be placed successfully
+    -->
+    <testcase id="14" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_FAMILY_PACK_PRINT_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of family pack print order (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">Family pack.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 15: Verify the Successful creation of Ultimate value pack print order (verify for pickup).
+    Expected Result:
+            order should be placed successfully
+     -->
+    <testcase id="15" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_ULTIMATE_VALUE_PACKS_PRINT_TO_CART,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of Ultimate value pack print order (verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">Ultimate value pack.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 16: Verify the Successful creation of Ultimate value pack print order (verify for Mail order).
+    Expected Result:
+            order should be placed successfully
+     -->
+    <testcase id="16" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_ULTIMATE_VALUE_PACKS_PRINT_TO_CART,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful creation of Ultimate value pack print order (verify for Mail order).</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">Ultimate value pack.(s.)</element>
+       </verify>  
+    </testcase>    
+    
+    <!-- CASE 17:  Verify the Successful Creation of Mixed Print Order(verify for pickup).
+    Expected result:
+      		order should be placed successfully
+     -->
+    <testcase id="17" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PICKUP,DEP-ADD_ALL_PRINT_SIZES_TO_CART,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful Creation of Mixed Print Order(verify for pickup).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PRINT_BTN_PURCHASE_ORDER_PAGE_PICKUP_FLOW"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">5x7 print.(s.)|5x7 Print.(s.)</element>
+            <element type="text">8x10 print.(s.)|8x10 Print.(s.)</element>
+            <element type="text">4x6 wallet set.(s.)|4x6 Wallet Set.(s.)</element>
+            <element type="text">Family pack.(s.)</element>
+            <element type="text">Ultimate value pack.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 18:  Verify the Successful Creation of Mixed Print Order(verify for Mail order). 
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="18" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_ALL_PRINT_SIZES_TO_CART,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Successful Creation of Mixed Print Order(verify for Mail order). </description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">5x7 print.(s.)|5x7 Print.(s.)</element>
+            <element type="text">8x10 print.(s.)|8x10 Print.(s.)</element>
+            <element type="text">4x6 wallet set.(s.)|4x6 Wallet Set.(s.)</element>
+            <element type="text">Family pack.(s.)</element>
+            <element type="text">Ultimate value pack.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 19:  Verify the Review order page displayed for pickup orders.
+    Expected Result:
+         review order page should display with order details
+     -->
+    <testcase id="19" cobrand="walgreens" dependsequence="DEP-NAV_TO_REVIEW_PAGE_PICKUP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Review order page displayed for pickup orders.</description>
+        <verify>
+            <element type="title">.*Order Review.*</element>
+            <element type="element" id="SUBMIT_ORDER_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+        </verify> 
+    </testcase>
+    
+    <!-- CASE 20:  Verify the Review order page for mixed pickup and mail order. 
+    Expected Resilt:
+           review order page should display with order details
+     -->
+    <testcase id="20" cobrand="walgreens" dependsequence="DEP-NAV_TO_REVIEW_ORDER_PAGE_MIXEDORDER,DEP-ADD_APRON_TO_CART,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Review order page for mixed pickup and mail order.</description>
+        <verify>
+            <element type="title">.*Order Review.*</element>
+            <element type="element" id="SUBMIT_ORDER_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">Photo apron</element>
+        </verify> 
+    </testcase>
+    
+    <!-- CASE 21:  Verify the Review order page displayed for mail orders.
+    Expected Result:
+           review order page should display with order details
+     -->
+    <testcase id="21" cobrand="walgreens" dependsequence="DEP-NAV_TO_REVIEW_PAGE,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Review order page displayed for mail orders.</description>
+        <verify>
+            <element type="title">.*Order Review.*</element>
+            <element type="element" id="SUBMIT_ORDER_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+        </verify> 
+    </testcase>
+    
+    <!-- CASE 22: Verify the successful creation of the Prints with Gift Card as payment method.  
+    Expcted Result:
+          order should be placed successfully
+     -->
+    <testcase id="22" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_GIFTCARD,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the successful creation of the Prints with Gift Card as payment method. </description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 23: Verify the successful creation of the Prints with PayPal as payment method.   
+    Expected Result:
+        order should be placed successfully
+     -->
+    <testcase id="23" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_PAYPAL,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the successful creation of the Prints with PayPal as payment method.</description>
+        <verify>
+           <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+       </verify>  
+    </testcase>
+    
+    <!-- CASE 24: Verify the CSR for the print Mail/pickup/share orders.
+    expected Result:
+         order details should be displayed correctly
+     -->
+    <testcase id="24" cobrand="walgreens" site="csr" dependsequence="CSR_SELECT_FIRST_ORDER_WG,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the CSR for the print Mail/pickup/share orders.</description>
+        <verify>
+            <element type="title">.*Order Status for Acct Order.*</element>
+            <element type="element" id="CSR_ISSUE_CREDIT_LINK" visible="true"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text" id="ITEM_UPC_IN_ORDER_BASKET">reprint;4x6</element>
+            <element type="text" id="ITEM_DESCRIPTIONI_IN_ORDER_BASKET">4x6 print</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASe 25: Verify the Issue of credit for Prints.
+    Expected Result:
+             credits should be issued 
+     -->
+    <testcase id="DEP-CSR_CLICK_ON_REPRINTS_LINK" depends="CSR_NAV_TO_ISSUE_CREDIT_WG" site="csr">
+        <description>Clicking on PhotoGifts link in csr issue credit</description>
+        <instructions>
+            <select id="CSR_SELECT_COBRAND">walgreens_us,WALGREENS</select>
+            <type id="CSR_EGAIN_TICKET_NUMBER">12345</type>
+            <type id="CSR_NOTES_TXTAREA">Issue credit for Reprints</type>
+            <select id="SELECT_REASONCODE_DROPDOWN">Cancelled Order</select>
+            <!-- <select id="SELECT_REASONCODE_DROPDOWN">value=COR</select> -->
+            <click id="CSR_REPRINTS_LINK" pageload="false" sleeptime="3000"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="CSR_4X6PRINT_TFLD_CREDITS" visible="true"></element>
+        </verify>
+    </testcase>
+    <testcase id="CSR-ISSUE_CREDITS_FOR_REPRINTS" dependsequence="DEP-CSR_CLICK_ON_REPRINTS_LINK,CSR_GENERALPAGE_WG" site="csr">
+        <description>Issue credits for reprints</description>
+        <instructions>
+            <type id="CSR_4X6PRINT_TFLD_CREDITS">1</type>
+            <!--<type id="CSR_5X7PHOTO_CARDS_TFLD_CREDITS">1</type>-->
+            <click id="CSR_ISSUECREDIT" sleeptime="5000" pageload="false"/>
+        </instructions>
+        <verify>
+            <element type="title">.*Customer Care Tool.*</element>
+            <element type="element" id="CSR_RETURN_TO_ORDER"/>
+            <element type="text">Credit Issued</element>
+            <element type="text">4x6 print credit.(s.)</element>
+        </verify>
+    </testcase>
+    <testcase id="25" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,CSR-ISSUE_CREDITS_FOR_REPRINTS,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the Issue of credit for Prints.</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">Credit 4x6 print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASe 26:  Check the CSR for the Prints order resubmit .
+    Expected Result:
+            order should be able to resubmt order
+     -->
+    <testcase id="26" cobrand="walgreens" site="csr" dependsequence="DEP-CSR_RESUBMIT_ORDER_WG,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check the CSR for the Prints order resubmit .</description>
+        <instructions>
+            <click id="CSR_RETURN_TO_ORDER"></click>
+            <click id="CSR_ORDERS" pageload="false"/>
+            <click id="CSR_FIRST_ORDER"/>
+        </instructions>
+        <verify>
+            <element type="title">.*Order Status for Acct Order.*</element>
+            <element type="element" id="CSR_ISSUE_CREDIT_LINK" visible="true"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">Confirmed (CFM)</element>
+            <element type="text" id="ITEM_UPC_IN_ORDER_BASKET">reprint;4x6</element>
+            <element type="text" id="ITEM_DESCRIPTIONI_IN_ORDER_BASKET">4x6 print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 27:  Check the issue refund  for Mail orders.
+    Expected Result:
+         refunds should work from csr
+     -->
+    <testcase id="DEP-CLICK_ON_REFUND_LINK" site="csr">
+        <description>Clicking on refund link and verfiying prints qty field</description>
+        <instructions>
+            <click id="REFUND_LINK"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="CSR_4X6_REFUND_TXTFLD"></element>
+            <element type="element" id="ISSUE_REFUND"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CSR_ISSUE_FULL_REFUND_PRINTS" dependsequence="DEP-CLICK_ON_REFUND_LINK,CSR_SELECT_FIRST_ORDER_WG" site="csr">
+        <description>Issue refund in csr for prints</description>
+        <instructions>
+            <type id="CSR_4X6_REFUND_TXTFLD">1</type>
+            <type id="CSR_SHIPPING_HANDLING_REFUNDQTY" visible="true" optional="true">1</type>
+            <select id="SELECT_REASONCODE_DROPDOWN">Cancelled Order</select>
+            <type id="CSR_EGAIN_TICKET_NUMBER">12345</type>
+            <type id="REFUND_NOTES_TXTAREA">Full refund</type>
+            <click id="NO_ORDER_REFUND_RBTN" pageload="false"/>
+            <check id="CSR_4X6PRINTS_YES_CHKBOX" visible="true" optional="true"></check>
+            <check id="CSR_SHIPPING_HANDLING_YES_CHKBOX"></check>
+            <click id="ISSUE_REFUND"/>
+        </instructions>
+        <verify>
+            <element type="title">.*Customer Care Tool.*</element>
+            <element type="element" id="CSR_RETURN_TO_ORDER"/>
+            <element type="text">Refund Issued</element>
+        </verify>
+    </testcase>
+    <testcase id="27" cobrand="walgreens" dependsequence="DEP-CSR_ISSUE_FULL_REFUND_PRINTS,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check the issue refund  for Mail orders.</description>
+        <instructions>
+            <open title=".*Account Home.*">/youraccount</open>
+            <click id="RECENT_ORDER_LINK" sleeptime="5000"/>
+        </instructions>
+        <verify>
+            <element type="element" id="BACK_TO_YOUR_ACCNT_BTN"/>
+            <element type="element" id="CREATE_ORDER_LINK"></element>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">Amount refunded</element>
+            <element type="text" id="ORDER_TOTAL_PRICE" persist="order_total_price"></element>
+            <element type="compareNumbers" id="AMOUNT_REFUNDED_PRICE" persistId="order_total_price"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 28: Check the CSR for the order states after placing the prints order.
+    Expected Result:
+         All the sizes which are placed to be should be in package or submitted state
+     -->
+    <testcase id="28" site="csr" cobrand="walgreens" dependsequence="CSR_SELECT_FIRST_ORDER_WG,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check the CSR for the order states after placing the prints order.</description>
+        <verify>
+            <element type="title">.*Order Status for Acct Order.*</element>
+            <element type="element" id="CSR_ISSUE_CREDIT_LINK" visible="true"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text" id="ITEM_UPC_IN_ORDER_BASKET">reprint;4x6</element>
+            <element type="text" id="ITEM_DESCRIPTIONI_IN_ORDER_BASKET">4x6 print</element>
+            <element type="text" id="CSR_ORDER_BASKET_STATUS">Confirmed .(CFM.)|Packaged .(PGD.)|Submitted .(SMD.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 29: Verify the order status page for Prints.
+    Expected Result:
+          order details should be displayed in order status 
+      -->
+    <testcase id="29" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the order status page for Prints.</description>
+        <instructions>
+            <open title=".*Account Home.*">/youraccount</open>
+            <click id="RECENT_ORDER_LINK" sleeptime="5000"/>
+        </instructions>
+        <verify>
+            <element type="element" id="BACK_TO_YOUR_ACCNT_BTN"/>
+            <element type="element" id="CREATE_ORDER_LINK"></element>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 30: Verify the successful creation of the Prints across pods.
+    Expected Result:
+          order should be placed successfully
+     -->
+    <testcase id="DEP-ORDER_SHARED_PRINTS_POD1_ACCOUNT" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_SHARED_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_POD1">
+        <description>Order prints with shared photos of pod1 account</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="url">us1.</element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-ORDER_SHARED_PRINTS_POD2_ACCOUNT" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_SHARED_PRINTS_TO_CART_STORE_PAGE,DEP-LOGIN_POD2,DEP-LOGOUT_WG,DEP-CHECK_LOGGEDOUT_OR_NOT">
+        <description>Order prints with shared photos of pod2 account</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="url">us2.</element>
+        </verify>
+    </testcase>
+    <testcase id="30" cobrand="walgreens" dependsequence="DEP-ORDER_SHARED_PRINTS_POD2_ACCOUNT,DEP-ORDER_SHARED_PRINTS_POD1_ACCOUNT">
+        <description>Verify the successful creation of the Prints across pods.</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 31: Verify the whether 'next' and 'previous' links are displayed.
+    Expcted Result:
+          next' and 'previous' links are displayed in store list page in pick up flow
+     -->
+    <testcase id="31" cobrand="walgreens" dependsequence="DEP-NAV_TO_SELECT_A_STORE_LAYER,DEP-NAV_TO_SELECTASTORE_PAGE,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the whether 'next' and 'previous' links are displayed.</description>
+        <instructions>
+            <selectframe>name=storewindow</selectframe>
+            <click id="NEXT_LINK_PICKUP_STORE_LAYER" pageload="false" sleeptime="10000"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="NEXT_LINK_PICKUP_STORE_LAYER" visible="true"></element>
+            <element type="element" id="PREVIOUS_LINK_PICKUP_STORE_PAGE" visible="true"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 32: Verify ordering prints from prints tab in the header section.
+        (AND)  Verify Ordering  prints from Photolibrary page
+        (AND)  Verify Ordering  prints from album page
+        (AND)  Verify ordering prints from logged out flow
+    Expected Result:
+         /reprintphotoselector page should be displayed
+     -->
+    <testcase id="DEP-VERIFY_FROM_LIBRARY_PAGE">
+        <description>Verifying reprints select photo page is displayed or not when clicking on order icon in library page</description>
+        <instructions>
+            <open sleeptime="5000">/photolibrary</open><!-- 
+            <mouseover id="FIRST_ALBUM_LIBRARY_PAGE" sleeptime="3000"></mouseover>
+            <click id="ORDER_PRINTS_ICON_ON_ALBUM"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select Photo.*</element>
+            <element type="element" id="SELECT_ALL_LINK"></element>
+            <element type="element" id="FIRST_PHOTO"></element>
+        </verify> -->
+        	<click id="FIRST_ALBUM_LIBRARY_PAGE" pageload="false" visible="true"></click>
+            <mouseover id="FIRST_PHOTO_PICTURE_GRIDVIEW_PAGE" sleeptime="2000" visible="true"></mouseover>
+            <click id="ADD_TO_CART_IMAGE_PICTURE_GRID_VIEW_PAGE" sleeptime="5000" visible="true"></click>
+            <!-- <mouseover id="ORDER_PRINTS_TAB_PICTURE_GRID_VIEW_PAGE" sleeptime="2000"></mouseover>
+            <click id="CHOOSE_FROM_ALL_SIZES_LINK"></click> -->
+            <open>/shoppingcart</open>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE" visible="true"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-VERIFY_FROM_ALBUM_PAGE" depends="DEP-WG_EMPTY_CART">
+        <description>Verifying reprints select photo page is displayed or not when clicking on order icon in library page</description>
+        <instructions>
+            <open sleeptime="5000">/photolibrary</open><!-- 
+            <doubleclick id="FIRST_ALBUM_LIBRARY_PAGE" sleeptime="3000"></doubleclick>
+            <mouseover id="ORDER_PRINTS_TAB_LIBRARY_PAGE" sleeptime="3000"></mouseover>
+            <click id="PRINTS_LINK_ORDER_PRINTS_OVERLAY"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select Photo.*</element>
+            <element type="element" id="SELECT_ALL_LINK"></element>
+            <element type="element" id="FIRST_PHOTO"></element>
+        </verify> -->
+            <mouseover id="FIRST_ALBUM_LIBRARY_PAGE" sleeptime="2000" visible="true"></mouseover>
+            <click id="ORDER_PRINTS_ICON_ON_ALBUM" sleeptime="5000" visible="true"></click>
+            <!-- <mouseover id="ORDER_PRINTS_TAB_PICTURE_GRID_VIEW_PAGE" sleeptime="2000"></mouseover>
+            <click id="CHOOSE_FROM_ALL_SIZES_LINK"></click> -->
+            <open>/shoppingcart</open>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE" visible="true"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-NAV_TO_REPRINTS_PAGE">
+        <description>Verifying reprints select photo page is displayed or not when clicking on order icon in library page</description>
+        <instructions>
+            <!-- <open>/home</open>
+            <click id="PRINTS_TAB" visible="true"></click> -->
+            <open sleeptime="5000">/reprintsphotoselector/</open>
+            <!-- 
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="FIRST_ALBUM_IMG"></element>
+            <element type="element" id="ADD_TO_CART_REPRINTS_FLOW"></element>
+        </verify> -->        	
+            <click id="FIRST_ALBUM_IMG" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" visible="true"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" visible="true"></click>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE" visible="true"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <testcase id="32" cobrand="walgreens" dependsequence="DEP-NAV_TO_REPRINTS_PAGE,DEP-WG_EMPTY_CART,DEP-VERIFY_FROM_ALBUM_PAGE,DEP-VERIFY_FROM_LIBRARY_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_FROM_LOGIN_LAYER,DEP-LOGOUT_WG">
+        <description>Verify ordering prints from prints tab, Photolibrary, album page and logged out flow in the header section.</description>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="FIRST_ALBUM_IMG"></element>
+            <element type="element" id="ADD_TO_CART_REPRINTS_FLOW"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 33: Verify error message displayed in FB login layer if user enters invalid details.
+    Expected Result:
+           Appropriate error message should be displayed in FB login layer
+     -->
+    <testcase id="DEP-NAV_TO_FACEBOOK_POPUP">
+        <description>Navigating facebook popup from reprints select album page</description>
+        <instructions>
+            <click id="FACEBOOK_IMG_SELECT_ALBUM_PAGE" sleeptime="2000"></click>
+            <click id="FACEBOOK_LOGIN_LINK_SELECT_ALBUM_PAGE" sleeptime="2000"></click>
+            <selectwindow index="1"></selectwindow>
+        </instructions>
+        <verify>
+            <element type="title">.*Log In.*|.*Facebook.*</element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-LOGIN_TO_FACEBOOK_INVALID_CREDENTIALS" depends="DEP-NAV_TO_FACEBOOK_POPUP">
+        <description>Log in to face book with valid credentials and verifying facebook albums in reprints select album page</description>
+        <instructions>
+            <type id="EMAILID_TXTFLD_FACEBOOK_POPUP" persistId="login_email_id"></type>
+            <type id="PASSWORD_TXTFLD_FACEBOOK_POPUP">sfqatessadt</type>
+            <click id="LOGIN_BTN_FACEBOOK_POPUP" pageload="false" sleeptime="5000"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="PASSWORD_TXTFLD_FACEBOOK_POPUP"></element>
+            <element type="element" id="PASSWORD_TXTFLD_FACEBOOK_POPUP"></element>
+            <element type="text">The password and email address you entered don't match|Please re-enter your password</element>
+            <element type="text">Incorrect Email/Password Combination|The password you entered is incorrect</element>
+            <!-- <element type="text">Please re-enter your password</element>
+            <element type="text">The password you entered is incorrect. Please try again (make sure your caps lock is off)</element> -->
+        </verify>
+    </testcase>
+    <testcase id="DEP-LOGOUT_FROM_FACEBOOK">
+        <description>Logout from facebook</description>
+        <instructions>
+            <click id="ACCOUNT_SETTINGS_DROPDOWN_FACEBOOK_HOMEPAGE" pageload="falses" visible="true"></click>
+            <click id="LOGOUT_LINK_FACEBOOK_HOMEPAGE"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Welcome to Facebook - Log In, Sign Up.*</element>
+            <element type="element" id="EMAILID_TXTFLD_FACEBOOK_POPUP"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CHECK_LOGOUT_FROM_FACEBOOK">
+        <description>Open facebook.com to check the account is already logged in</description>
+        <instructions>
+            <open appendbaseurl="false">www.facebook.com/</open>
+        </instructions>
+        <verify>
+            <element type="title">.*Welcome to Facebook - Log In, Sign Up.*|.*Facebook.*</element>
+            <element type="if" condition="element" id="ACCOUNT_SETTINGS_DROPDOWN_FACEBOOK_HOMEPAGE" executetestcase="DEP-LOGOUT_FROM_FACEBOOK"></element>
+            <element type="element" id="EMAILID_TXTFLD_FACEBOOK_POPUP"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-NAV_TO_REPRINTS_PHOTO_SELECTOR_PAGE">
+    	<description>Navigating to reprints photo selector page</description>
+    	<instructions>
+    		<open>/reprintsphotoselector</open>
+    	</instructions>
+    	<verify>
+    		<element type="title">.*Reprints: Select Album.*</element>
+    		<element type="element" id="FACEBOOK_IMG_SELECT_ALBUM_PAGE"></element>
+    	</verify>
+    </testcase>
+    <testcase id="33" cobrand="walgreens" dependsequence="DEP-LOGIN_TO_FACEBOOK_INVALID_CREDENTIALS,DEP-NAV_TO_REPRINTS_PHOTO_SELECTOR_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_FOR_FB_CASES">
+        <description>Verify error message displayed in FB login layer if user enters invalid details.</description>
+        <instructions>
+        	<selectwindow index="0"></selectwindow>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="ADD_TO_CART_REPRINTS_FLOW"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 34: Verify the functionality of select/unselect entire album link for FB album .
+    Expected Result:
+           All images in that album should/should not be added to photo well
+     -->
+    <testcase id="DEP-CLICK_ON_FB_LINK">
+        <description>Navigating facebook popup from reprints select album page</description>
+        <instructions>
+            <click id="FACEBOOK_LOGIN_LINK_SELECT_ALBUM_PAGE" pageload="false" sleeptime="2000"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="OWNED_ALBUMS_TAB"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-LOGIN_TO_FACEBOOK_FROM_POPUP" depends="DEP-NAV_TO_FACEBOOK_POPUP">
+        <description>Log in to face book with valid credentials and verifying facebook albums in reprints select album page</description>
+        <instructions>
+            <type id="EMAILID_TXTFLD_FACEBOOK_POPUP">wag_mir4@in.com</type>
+            <type id="PASSWORD_TXTFLD_FACEBOOK_POPUP">sfqatest1</type>
+            <click id="LOGIN_BTN_FACEBOOK_POPUP"></click>
+            <selectwindow index="0"></selectwindow>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CHECK_FACEBOOK_ALREADY_LOGGED_IN">
+        <description>logging in to facebook account and verifying facebook albums</description>
+        <!-- <instructions>
+            <click id="FACEBOOK_IMG_SELECT_ALBUM_PAGE" pageload="false" sleeptime="2000"></click>
+        </instructions> -->
+        <verify>
+            <element type="if" condition="element" id="FACEBOOK_IMG_SELECT_ALBUM_PAGE" executetestcase="DEP-LOGIN_TO_FACEBOOK_FROM_POPUP"></element>
+            <element type="element" id="YOUR_FACEBOOK_LINK_SELECT_ALBUM_PAGE"></element>
+            <element type="element" id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="Feature_removed_34" cobrand="walgreens" dependsequence="DEP-CHECK_FACEBOOK_ALREADY_LOGGED_IN,DEP-NAV_TO_REPRINTS_PHOTO_SELECTOR_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_FOR_FB_CASES">
+        <description>Verify the functionality of select/unselect entire album link for FB album .</description>
+        <instructions>
+            <click id="YOUR_FACEBOOK_LINK_SELECT_ALBUM_PAGE" pageload="false" sleeptime="2000"></click>
+            <getxpathcount id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE" persist="facebook_album_count"></getxpathcount>
+            <getxpathcount id="PREVIEW_ALBUM_ICON_FACEBOOK_ALBUMS" persist="facebook_preview_album_icon"></getxpathcount>
+            <click id="PREVIEW_ALBUM_ICON_FACEBOOK_ALBUMS" pageload="false" sleeptime="3000"></click>
+            <click id="SELECT_ENTIRE_ALBUM_UNDER_PREVIEW_ICON" sleeptime="3000" visible="true" pageload="false"></click>
+            <getxpathcount id="FIRST_SELECTED_PHOTO_IN_PHOTO_WELL" persist="selected_photo_count"></getxpathcount>
+            <click id="PREVIEW_ALBUM_ICON_FACEBOOK_ALBUMS" pageload="false" sleeptime="3000"></click>
+            <click id="UNSELECT_ENTIRE_ALBUM_UNDER_PREVIEW_ICON" sleeptime="3000" visible="true" pageload="false"></click>
+            <click id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE" pageload="false"></click>
+            <getxpathcount id="FIRST_PHOTO" persist="no_of_photos_in_album"></getxpathcount>
+        </instructions>
+        <verify>
+            <element type="title">.*Reprints: Select.*</element>
+            <element type="element" id="ADD_TO_CART_REPRINTS_FLOW"></element>
+            <element type="subtraction" args1="facebook_album_count" args2="facebook_preview_album_icon">0</element>
+            <element type="subtraction" args1="selected_photo_count" args2="no_of_photos_in_album">0</element>
+            <element type="element" id="REMOVE_ALL_LINK_PHOTO_WELL" visible="false"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 35: Verify the reorder flow from Order details page for FB images print order ( before FB images deleted ).
+    Expcted Result:
+            Reorder flow should be successful
+     -->
+    <testcase id="DEP-ADD_FB_ALBUM_PRINTS_TO_CART" depends="DEP-CHECK_FACEBOOK_ALREADY_LOGGED_IN">
+        <description>Adding facebook photos to cart</description>
+        <instructions>
+            <click id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE" pageload="false" sleeptime="3000"></click>
+            <click id="FIRST_PHOTO" pageload="false" sleeptime="3000"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" pageload="false" visible="true" sleeptime="5000"></click>
+            <click id="AGREE_BTN_IN_DOWNLOAD_APPROVAL_LAYER" optional="true" visible="true"></click>
+            <selectframe id="IMPORT_FBPHOTOS_LAYER_NAME"></selectframe>
+            <!-- <click id="DOWNLOAD_APPROVAL_AGREE_BTN" optional="true"></click> -->
+            <click id="CONTINUE_BTN_IMPORT_FBPHOTOS_LAYER" pageload="false" sleeptime="8000"></click>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" visible="true"></click>
+            <click id="PROCEED_TO_CHECKOUT" optional="true" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-ADD_PRINTS_TO_CART_REORDER_FLOW">
+        <description>Addin prints to cart from order details page in reorder flow</description>
+        <instructions>
+            <open title=".*Account Home.*">/youraccount</open>
+            <click id="RECENT_ORDER_LINK" sleeptime="5000"/>
+            <click id="CREATE_ORDER_LINK" sleeptime="5000"/>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-REORDER_PRINTS" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_REORDER_FLOW">
+        <description>Verifying receipt page after reorder</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+        </verify>
+    </testcase>
+    <testcase id="35" cobrand="walgreens" dependsequence="DEP-REORDER_PRINTS,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_FB_ALBUM_PRINTS_TO_CART,DEP-NAV_TO_REPRINTS_PHOTO_SELECTOR_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_FOR_FB_CASES">
+        <description>Verify the reorder flow from Order details page for FB images print order ( before FB images deleted ).</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 36: Verify the reorder flow from CSR tool page for FB images print order ( before FB images deleted ).
+    Expected Result:
+            Reorder from CSR should be successful
+     -->
+    <testcase id="36" cobrand="walgreens" site="csr" dependsequence="DEP-CSR_RESUBMIT_ORDER_WG,DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_FB_ALBUM_PRINTS_TO_CART,DEP-NAV_TO_REPRINTS_PHOTO_SELECTOR_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN_FOR_FB_CASES">
+        <description>Verify the reorder flow from Order details page for FB images print order ( before FB images deleted ).</description>
+        <instructions>
+            <click id="CSR_RETURN_TO_ORDER"></click>
+            <click id="CSR_ORDERS" pageload="false" sleeptime="10000"/>
+            <click id="CSR_FIRST_ORDER"/>
+        </instructions>
+        <verify>
+            <element type="title">.*Order Status for Acct Order.*</element>
+            <element type="element" id="CSR_ISSUE_CREDIT_LINK" visible="true"/>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+            <element type="text">Confirmed .(CFM.)</element>
+            <element type="text" id="ITEM_UPC_IN_ORDER_BASKET">reprint;4x6</element>
+            <element type="text" id="ITEM_DESCRIPTIONI_IN_ORDER_BASKET">4x6 print.(s.)</element>
+        </verify>
+    </testcase>   
+    
+    
+    <!-- CASE 37: Verify the page displayed when clicked on the 'View Details' link of a particular order.
+    Expected Result:
+           Order details page should be displayed 
+     -->
+    <testcase id="37" cobrand="walgreens" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the page displayed when clicked on the 'View Details' link of a particular order</description>
+        <instructions>
+            <open title=".*Account Home.*">/youraccount</open>
+            <click id="RECENT_ORDER_LINK" sleeptime="5000"/>
+        </instructions>
+        <verify>
+            <element type="element" id="BACK_TO_YOUR_ACCNT_BTN"/>
+            <element type="element" id="CREATE_ORDER_LINK"></element>
+            <element type="text">4x6 print.(s.)|4x6 Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 38: Check dedicated prints page when ordering prints from home page.
+    Expected Result:
+           Dedicated prints page should display when clicked on 'add to cart' button in order reprints flow
+     -->
+    <testcase id="DEP-NAV_TO_DEDICATE_PAGE_FROM_HOME">
+        <description>Navigating to prints dedicated page from home page</description>
+        <instructions>
+            <open sleeptime="5000">/home</open>
+            <click id="ORDER_PRINTS_LINK"></click>
+            <click id="FIRST_ALBUM_IMG" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" visible="true"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" ></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+        </verify>
+    </testcase>
+    <testcase id="38" cobrand="walgreens" dependsequence="DEP-NAV_TO_DEDICATE_PAGE_FROM_HOME,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check dedicated prints page when ordering prints from home page.</description>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 39: Check dedicated prints page when ordering prints from SOFI/photo library page.
+    Expected Result:
+         Dedicated prints page should display when clicked on 'add to cart' button in order reprints flow
+     -->
+    <testcase id="DEP-NAV_TO_DPP_FROM_SOFI">
+    	<description>Navigate to choose sizes and quantity page</description>
+    	<instructions>
+    		<open>/photolibrary</open>
+        	<click id="FIRST_ALBUM_LIBRARY_PAGE" pageload="false" visible="true"></click>
+    		<mouseover id="ORDER_PRINTS_TAB_LIBRARY_PAGE"></mouseover>
+    		<click id="CHOOSE_FROM_ALL_SIZES_AND_QUANTITIES"></click>
+    	</instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+        </verify>
+    </testcase>
+    <testcase id="39" cobrand="walgreens" dependsequence="DEP-NAV_TO_DPP_FROM_SOFI,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check dedicated prints page when ordering prints from home page.</description>
+        <instructions>
+        	<type id="4X6_PRINTS_TXTFLD">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 40: Check dedicated prints page when ordering prints from Platinum header.
+    Expected Result:
+         Dedicated prints page should display when clicked on 'add to cart' button in order reprints flow
+     -->
+    <testcase id="40" cobrand="walgreens" dependsequence="DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check dedicated prints page when ordering prints from Platinum header.</description>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+            <element type="value" id="4X6_PRINTS_TXTFLD">1</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 41: Check dedicated prints page when ordering prints from group room.
+    Expected Result:
+          Dedicated prints page should display when clicked on 'add to cart' button in order reprints flow
+     -->
+    <testcase id="41" cobrand="walgreens" dependsequence="DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check dedicated prints page when ordering prints from group room.</description>
+        <instructions>
+            <open>/yourgrouprooms</open>
+            <click id="FIRST_GROUP_ROOM_YOUR_GROUP_ROOMS_PAGE"></click>
+            <click id="ORDER_PRINTS_LINK" pageload="false" sleeptime="3000"></click>
+            <click id="ORDER_FROM_EXISTING_ALBUM_LINK"></click>
+            <click id="SELECT_GROUP_ALBUM" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" visible="true"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 42: Check dedicated prints page when ordering prints from store availability widget.
+    Expected Result:
+           Dedicated prints page should display when clicked on 'add to cart' button in order reprints flow
+     -->
+    <testcase id="DEP-NAV_TO_PRINTS_STORE_FROM_STORE_LOCATOR_LAYER">
+        <description>Navigating to Prints store page from home page by selecting store locator layer</description>
+        <instructions>
+            <open sleeptime="5000">/home</open>
+            <click id="STORE_LOCATOR_LINK_HOME_PAGE" pageload="false"></click>
+            <selectframe id="STORE_LOCATOR_LAYER_NAME"></selectframe>
+            <click id="SAME_DAY_PICKUP_BTN_STORE_LOCATOR_LAYER" pageload="false" sleeptime="3000"></click>
+            <click id="START_NOW_LINK_STORE_LOCATOR_LAYER" pageload="false" sleeptime="5000"></click>
+            <selectframe>relative=up</selectframe>
+        </instructions>
+        <verify>
+            <element type="title">.*Create Prints, Collage Prints.*</element>
+            <element type="element" id="REPRINTS_TILE"></element>
+        </verify>
+    </testcase>
+    <testcase id="42" cobrand="walgreens" dependsequence="DEP-NAV_TO_PRINTS_STORE_FROM_STORE_LOCATOR_LAYER,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check dedicated prints page when ordering prints from store availability widget.</description>
+        <instructions>
+            <click id="REPRINTS_TILE" visible="true"></click>
+            <click id="CREATE_NOW_BTN" optional="true"></click>
+            <click id="FIRST_ALBUM_IMG" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" visible="true"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" visible="true"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="ADD_MORE_PHOTOS_BTN"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 43: Check DPP page in prints edit order flow.
+    Expected Result:
+          DPP page should display with all the prints order information which are newly added to cart along with prints which are already added cart
+     -->
+    <testcase id="DEP-GET_PRINTS_QUANITY_PAGE">
+        <description></description>
+        <verify>
+            <element type="text" id="PRINTS_QUANTITY_CART_PAGE" persist="prints_qty_cart_page"></element>
+        </verify>
+    </testcase>
+    <testcase id="43" cobrand="walgreens" dependsequence="DEP-GET_PRINTS_QUANITY_PAGE,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check DPP page in prints edit order flow.</description>
+        <instructions>
+            <click id="EDIT_ORDER_AND_SIZES_LINK_CART_PAGE" sleeptime="5000"></click>
+            <click id="ADD_MORE_PHOTOS_BTN"></click>
+            <click id="FIRST_ALBUM_IMG" pageload="false" visible="true"></click>
+            <click id="FIRST_PHOTO" pageload="false" sleeptime="3000"></click>
+            <click id="ADD_TO_CART_REPRINTS_FLOW" sleeptime="5000"></click>
+            <getxpathcount id="PRINT_IMAGE_DEDICATED_PAGE" persist="number_of_prints_dedicated_page"></getxpathcount>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="subtraction" args1="number_of_prints_dedicated_page" args2="prints_qty_cart_page">1</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 44: Verify quick order section for 4x6/5x7/8x10 quantity box.
+    Expected Result:
+    		Quantity entered in the 4x6/5x7/8x10 quantity box should reflect for all the prints in DPP page
+     -->
+    <testcase id="44" cobrand="walgreens" dependsequence="DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify quick order section for 4x6/5x7/8x10 quantity box.</description>
+        <instructions>
+        <click id="MORE_SIZES" sleeptime="5000"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="value" id="4X6_PRINTS_TXTFLD">1</element>
+            <element type="value" id="5X7_PRINTS_TXTFLD"></element>
+            <element type="value" id="8X10_PRINTS_TXTFLD"></element>
+            <element type="value" id="WALLET_SET_TXTFLD"></element>
+            <element type="value" id="FAMILY_PACK_TXTFLD"></element>
+            <element type="value" id="ULTIMATE_VALUE_PACK_TXTFLD"></element>
+        </verify>
+    </testcase>
+    
+    
+    <!-- CASE 45: Check max quantity allowed in quick order section for 4x6/5x7/8x10 quantity box.
+    Expected Result:
+           3 digits should be maximum allowed.
+     -->
+    <testcase id="45" cobrand="walgreens" dependsequence="DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check max quantity allowed in quick order section for 4x6/5x7/8x10 quantity box.</description>
+        <instructions>
+            <type id="4X6_PRINTS_TXTFLD_QUICK_ORDER_SECTION">9999</type>
+            <click id="4X6_PRINTS_TXTFLD_QUICK_ORDER_SECTION" pageload="false" sleeptime="2000"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="value" id="4X6_PRINTS_TXTFLD_QUICK_ORDER_SECTION">999</element>
+            <element type="element" id="GLOSSY_FINISH_RBTN" isChecked="true"></element>
+            <element type="element" id="MATTE_FINISH_RBTN" isChecked="false"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 46: Check matte finish type option.
+    Expected Result:
+            Matte finish type option should be displayed and user should be able to choose any one finish type option
+     -->
+     
+    <testcase id="DEP-SELECT_MATTE_FINISH_EDIT_FLOW">
+        <description></description>
+        <instructions>
+            <click id="EDIT_ORDER_AND_SIZES_LINK_CART_PAGE"></click>
+            <click id="MATTE_FINISH_RBTN" pageload="false" sleeptime="2000"></click>
+        </instructions>
+        <verify>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="MATTE_FINISH_RBTN" isChecked="true"></element>
+            <element type="element" id="GLOSSY_FINISH_RBTN" isChecked="false"></element>
+        </verify>
+    </testcase>
+    <testcase id="46" cobrand="walgreens" dependsequence="DEP-SELECT_MATTE_FINISH_EDIT_FLOW,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Check matte finish type option.</description>
+        <instructions>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE" sleeptime="2000"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="MATTE_PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 47: Check low resolution warning message and resolution warning pop up displayed below quick order section.
+    Expected Result:
+            Low resolution warning message should display if DPP has any low res images, when clicked on warning icon, low resolution warning pop up should display
+     -->
+    <testcase id="DEP-CLICK_ON_LOW_RES_WARNING_IMAGE">
+        <description></description>
+        <instructions>
+            <click id="DEP-LOW_RES_ICON_DEDICATED_PAGE" pageload="false"></click>
+            <selectwindow index="1"></selectwindow>
+        </instructions>
+        <verify>
+            <element type="title">.*Popup: Help: Prints &amp; Posters Resolution Warning.*</element>
+            <element type="element" id="CLOSE_BTN_LOW_RES_POUP"></element>
+            <element type="text">Resolution is an indication of the quality of your photos</element>
+        </verify>
+    </testcase>
+    <testcase id="47" cobrand="walgreens" dependsequence="DEP-CLICK_ON_LOW_RES_WARNING_IMAGE,DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOWRES_LOGIN">
+        <description>Check low resolution warning message and resolution warning pop up displayed below quick order section.</description>
+        <instructions>
+            <click id="CLOSE_BTN_LOW_RES_POUP" pageload="false"></click>
+            <selectwindow index="0"></selectwindow>
+        </instructions>
+        <verify>
+            <element type="title">.*Choose Sizes and Quantities.*</element>
+            <element type="element" id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></element>
+            <element type="element" id="DEP-LOW_RES_ICON_DEDICATED_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 48: Verify add to cart button.
+    Expected Result:
+         Prints and posters should be added to cart and price, quantity and finish type information should display properly
+     -->
+    <testcase id="DEP-GET_PRINTS_POSTER_PRICE_VALUE">
+        <description>Get posters price from prints dedicated page</description>
+        <verify>
+            <element type="text" id="11X14_POSTER_PRICE_DEDICATED_PAGE" persist="poster_price_dedicated_page"></element>
+        </verify>
+    </testcase>
+    <testcase id="48" cobrand="walgreens" dependsequence="DEP-GET_PRINTS_POSTER_PRICE_VALUE,DEP-NAV_TO_PRINTS_DEDICATED_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify add to cart button.</description>
+        <instructions>
+            <type id="11X14_POSTER_TXTFLD" persist="11x14_poster_qty">1</type>
+            <click id="ADD_TO_CART_PRINTS_DEDICATED_PAGE"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="element" id="11X14_POSTERS_LINK_CART_PAGE"></element>
+            <element type="compareNumbers" id="11X14_POSTER_PRICE_CART_PAGE" persistId="poster_price_dedicated_page"></element>
+            <element type="compareNumbers" id="4X6_PRINTS_PRICE_CART_PAGE" persistId="4x6_prints_price"></element>
+            <element type="value" id="11X14_POSTER_QUANTITY_CART_PAGE" persistId="11x14_poster_qty"></element>
+            <element type="text">Print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 49: Verify the true digital prints check box displayed in the cart when there are no prints added in the cart.
+    Expected Result:
+         The true digital prints check box should not be displayed in the cart 
+     -->
+    <testcase id="49" cobrand="walgreens" dependsequence="DEP-ADD_APRON_TO_CART,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the true digital prints check box displayed in the cart when there are no prints added in the cart.</description>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="TDP_LINK_CART_PAGE" visible="false"></element>
+        </verify>
+    </testcase>
+    
+    
+    
+    <!-- CASE 50: Verify by clicking on the "True Digital prints".
+            And  Verify by adding digital Prints in the cart 
+            And Verify the true digital prints check box is displayed in the cart  and its default status
+            And Verify the True Digital prints are selected when user checks the box
+    Expected Result:
+    		The true digital prints check box and link should be displayed In the cart when clicked on the TDP
+        Link a overlay should be displayed showing the explanation matter related to TDP  
+     -->
+    <testcase id="DEP-VERIFY_TDP_CHECKBOX_IN_CART_PAGE">
+        <description>verfying TDP check box is not checked in the cart</description>
+        <verify>
+            <element type="element" id="TRUE_DIGITAL_PRINTS_CHKBOX_CART_PAGE" isChecked="false"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CHECK_TDP_CHECKBOX">
+        <description>Verifying TDP check box is checked or not after clicked on it</description>
+        <instructions>
+            <check id="TRUE_DIGITAL_PRINTS_CHKBOX_CART_PAGE" sleeptime="5000"></check>
+        </instructions>
+        <verify>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="TRUE_DIGITAL_PRINTS_CHKBOX_CART_PAGE" isChecked="true"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CLICK_ON_TDP_LINK" dependsequence="DEP-CHECK_TDP_CHECKBOX,DEP-VERIFY_TDP_CHECKBOX_IN_CART_PAGE">
+        <description>Clicking on TDP link and verifying TDP overlay</description>
+        <instructions>
+            <click id="TDP_LINK_CART_PAGE" pageload="false" sleeptime="8000"></click>
+            <selectframe id="TDP_OVERLAY_NAME"></selectframe>
+        </instructions>
+        <verify>
+            <element type="element" id="CLOSE_BTN_TDP_OVERLAY" visible="true"></element>
+            <element type="text">True Digital 4x5.3 Print</element>
+            <element type="text">Cropped Digital 4x6 Print</element>
+        </verify>
+    </testcase>
+    <testcase id="50" cobrand="walgreens" dependsequence="DEP-CLICK_ON_TDP_LINK,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify by clicking on the "True Digital prints".</description>
+        <instructions>
+            <click id="CLOSE_BTN_TDP_OVERLAY" pageload="false" sleeptime="2000"></click>
+            <selectframe id="RELATIVE_UP"></selectframe>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+        </verify>
+    </testcase>
+    
+    <!-- CASE 51: Verify the True Digital Prints check box is displayed in the cart page when clicked on edit Prints order link in the review order page.
+           - And - Verify the  True digital prints info displayed in  the review submit page and all other after cart pages where ever applicable when the cart contains digital prints 
+    Expected Result:
+            The true digital prints check box should be displayed in the cart   
+     -->
+    <testcase id="DEP-VERIFY_TDP_RELATED_TEXT">
+        <description>Verifying TDP related displayed in review order page</description>
+        <verify>
+            <element type="element" id="EDIT_PRINTS_ORDER_LINK_REVIEW_PAGE"></element>
+            <element type="text">You've selected True Digital 4x5.3 prints</element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-CLICK_ON_EDIT_PRINTS_IN_REVIEW_PAGE">
+        <description>Clicking on edit prints order in review page and verifying cart page</description>
+        <instructions>
+            <click id="EDIT_PRINTS_ORDER_LINK_REVIEW_PAGE"></click>
+        </instructions>
+        <verify>
+            <element type="title">.*Your Cart.*</element>
+            <element type="element" id="CHECKOUT_IMG_CART_PAGE"></element>
+            <element type="element" id="PRINTS_LINK_CART_PAGE"></element>
+            <element type="element" id="TRUE_DIGITAL_PRINTS_CHKBOX_CART_PAGE" isChecked="true"></element>
+        </verify>
+    </testcase>
+    <testcase id="DEP-ORDER_PRINTS_WITH_TDP" dependsequence="DEP-ORDER_PRODUCT_WITH_SHIP,DEP-CLICK_ON_EDIT_PRINTS_IN_REVIEW_PAGE,DEP-VERIFY_TDP_RELATED_TEXT">
+        <description>Verifying TDP related text in receipt page</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x5.3 trueDigital print.(s.)</element>
+        </verify>
+    </testcase>
+    <testcase id="51" cobrand="walgreens" dependsequence="DEP-ORDER_PRINTS_WITH_TDP,DEP-NAV_TO_REVIEW_PAGE,DEP-CHECK_TDP_CHECKBOX,DEP-ADD_PRINTS_TO_CART_STORE_PAGE,DEP-WG_EMPTY_CART,DEP-LOGIN">
+        <description>Verify the True Digital Prints check box is displayed in the cart page when clicked on edit Prints order link in the review order page.</description>
+        <verify>
+            <element type="title">.*Order Confirmation.*</element>
+            <element type="element" id="PLACE_THIS_ORDER_AGAIN_BTN"/>
+            <element type="text">4x5.3 trueDigital print.(s.)</element>
+        </verify>
+    </testcase>
+    
+    
+    
+    
+    
+    
+</testcases>

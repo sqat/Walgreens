@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Walgreens Prints Suite" teamName="Walgreens" subscriber="Walgreens">
+		
+    <test id="Custom CD" path="Walgreens/Custom CD" owner="WG Team" env="stg4,mir2,stg8,mir4"/>
+	<test id="Collage Prints" path="Walgreens/CollagePrints" owner="WG Team" env="mir2,stg4,stg8,mir4"/>   
+    <test id="Reprints CD" path="Walgreens/ReprintsCD" owner="WG Automation Team" env="stg4,mir2,stg8,mir4"></test>
+    
+    <test id="Passport Prints" path="Walgreens/PassportPrints" owner="WG Team" env="stg4,mir2,stg8,mir4"></test>
+    <test id="Prints" path="Walgreens/Prints" owner="WG Automation Team" env="mir2,stg4,stg8,mir4"></test>
+    <test id="Foresee Survey" path="Walgreens/ForeseeSurvey" owner="WG Automation Team" env="stg4,mir2,stg8,mir4"></test>
+    
+    <test id="Gift Cards" path="Walgreens/GiftCards" owner="WG Automation Team" env="stg4,mir2,stg8,mir4"></test>
+    
+    <test id="Square Prints" path="Walgreens/SquarePrints" owner="WG Automation Team" env="stg4,mir2,stg8,mir4"></test>
+	
+	
+</tests>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlocators xmlns="http://www.snapfish.com/selenium">
+	<locators cobrand="walgreens">
+	
+    <!-- Store Locator layer -->
+        <locator id="STORE_LOCATOR_LAYER_NAME">
+            <location>//iframe[@name='ele_iframestoreWidgetLayer']</location>
+        </locator>
+        <locator id="SAME_DAY_PICKUP_BTN_STORE_LOCATOR_LAYER">
+            <location>//span[@class='sprite-slr slr-pickup']</location>
+        </locator>
+        <locator id="START_NOW_LINK_STORE_LOCATOR_LAYER">
+            <location>link=Start now!</location>
+        </locator>
+    <!-- Select Album page -->
+        <locator id="REMOVE_ALL_LINK_PHOTO_WELL">
+            <location>link=Remove all</location>
+        </locator>
+        <locator id="FACEBOOK_IMG_SELECT_ALBUM_PAGE">
+            <location>//span[img[@title='Facebook']]</location>
+        </locator>
+        <locator id="FACEBOOK_LOGIN_LINK_SELECT_ALBUM_PAGE">
+            <location>//a[@title='Click to access your Facebook albums']</location>
+        </locator>
+        <locator id="YOUR_FACEBOOK_LINK_SELECT_ALBUM_PAGE">
+            <location>//div[span/img[@title='Facebook']]//span[contains(text(),'Your Facebook')]</location>
+        </locator>
+        <locator id="IMPORT_FBPHOTOS_LAYER_NAME">
+            <location>//iframe[@id='ele_iframe_FacebookAlbumCreation']|//iframe[@id='ele_iframeFacebookAlbumCreation']</location>
+        </locator>
+        <locator id="FACEBOOK_FIRST_ALBUM_SELECT_ALBUM_PAGE">
+            <location>//div[contains(@id,'facebook')]//td[@dojoattachpoint='albumBGNode']//img</location>
+        </locator>
+        <locator id="PREVIEW_ALBUM_ICON_FACEBOOK_ALBUMS">
+            <location>//div[contains(@id,'facebook')]//img[@alt='Preview album']</location>
+        </locator>
+        <locator id="SELECT_ENTIRE_ALBUM_UNDER_PREVIEW_ICON">
+            <location>link=select entire album</location>
+        </locator>
+        <locator id="UNSELECT_ENTIRE_ALBUM_UNDER_PREVIEW_ICON">
+            <location>link=unselect entire album</location>
+        </locator>
+        <locator id="FIRST_SELECTED_PHOTO_IN_PHOTO_WELL">
+            <location>//div[div[text()='Selected Photos']]//div[@dojoattachpoint='photoContNode']//img[@dojoattachpoint='photoNode']</location>
+        </locator>
+        <locator id="AGREE_BTN_IN_DOWNLOAD_APPROVAL_LAYER">
+            <location>//div[contains(@id,'FBDownloadApprovalDivLay')]//*[@alt='AGREE']</location>
+        </locator>
+        <locator id="CANCEL_BTN_IN_DOWNLOAD_APPROVAL_LAYER">
+            <location>//div[contains(@id,'FBDownloadApprovalDivLay')]//img[@alt='Cancel']</location>
+        </locator>
+        <locator id="CONTINUE_BTN_IMPORT_FBPHOTOS_LAYER">
+            <location>//img[@alt='CONTINUE']</location>
+        </locator>
+        <locator id="DOWNLOAD_APPROVAL_AGREE_BTN">
+        	<location>//span[@alt='AGREE']</location>
+        </locator>        
+        
+    <!-- Facebook popup -->
+        <locator id="EMAILID_TXTFLD_FACEBOOK_POPUP">
+            <location>//input[@id='email']</location>
+        </locator>
+        <locator id="PASSWORD_TXTFLD_FACEBOOK_POPUP">
+            <location>//input[@id='pass' or @type='password']</location>
+        </locator>
+        <locator id="LOGIN_BTN_FACEBOOK_POPUP">
+            <location>//input[@name='login']</location>
+        </locator>
+    
+    <!-- Face book home page -->
+        <locator id="ACCOUNT_SETTINGS_DROPDOWN_FACEBOOK_HOMEPAGE">
+            <location>//div[contains(text(),'Account Setting')]</location>
+        </locator>
+        <locator id="LOGOUT_LINK_FACEBOOK_HOMEPAGE">
+            <location>//input[@type='submit' and @value='Log Out']</location>
+        </locator>
+    <!-- Your Group Rooms page -->
+        <locator id="FIRST_GROUP_ROOM_YOUR_GROUP_ROOMS_PAGE">
+            <location>//a[contains(@href,'groupownerid=')]/img</location>
+        </locator>
+        <locator id="ORDER_FROM_EXISTING_ALBUM_LINK">
+            <location>link=Order from existing album</location>
+        </locator>
+    <!-- Prints Dedicated Page -->
+        <locator id="5X7_PRINTS_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'5x7')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="8X10_PRINTS_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'8x10')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="WALLET_PRINTS_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'Wallet Set')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="FAMILY_PACK_PRINTS_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'Family Pack')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="ULTIMATE_PRINTS_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'Ultimate Value Pack')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="11X14_POSTER_PRICE_DEDICATED_PAGE">
+            <location>//span[contains(text(),'Pricing')]//following::td[contains(text(),'11x14')]//following::td[@class='cart_price'][2]</location>
+        </locator>
+        <locator id="4X6_PRINTS_TXTFLD_QUICK_ORDER_SECTION">
+            <location>id=qty4x6</location>
+        </locator>
+         <locator id="MORE_SIZES">
+            <location>link=More Sizes</location>
+        </locator>
+        <locator id="4X6_PRINTS_TXTFLD">
+            <location>//input[contains(@id,'qty_reprint;4x6')]</location>
+        </locator>
+        <locator id="4X6_PRINTS_TXTFLD_FOR_2ND_PIC">
+        	<location>xpath=(//input[contains(@id,'qty_reprint;4x6')])[2]</location>
+        </locator>
+        <locator id="5X7_PRINTS_TXTFLD">
+            <location>//input[contains(@id,'qty_reprint;5x7')]</location>
+        </locator>
+        <locator id="8X10_PRINTS_TXTFLD">
+            <location>//input[contains(@id,'qty_reprint;8x10')]</location>
+        </locator>
+        <locator id="WALLET_SET_TXTFLD">
+            <location>//input[contains(@id,'qty_Wallet4x6')]</location>
+        </locator>
+        <locator id="FAMILY_PACK_TXTFLD">
+            <location>//input[contains(@id,'qty_WGFamilyPack_')]</location>
+        </locator>
+        <locator id="ULTIMATE_VALUE_PACK_TXTFLD">
+            <location>//input[contains(@id,'qty_WGUltimateValuePack_')]</location>
+        </locator>
+        <locator id="11X14_POSTER_TXTFLD">
+            <location>//input[contains(@id,'qty_poster;11x14')]</location>
+        </locator>
+        <locator id="12X18_POSTER_TXTFLD">
+            <location>//input[contains(@id,'qty_poster;12x18')]</location>
+        </locator>
+        <locator id="16X20_POSTER_TXTFLD">
+            <location>//input[contains(@id,'qty_poster;16x20')]</location>
+        </locator>
+        <locator id="GLOSSY_FINISH_RBTN">
+            <location>//input[@value='glossy' and @name='paperfinish']</location>
+        </locator>
+        <locator id="MATTE_FINISH_RBTN">
+            <location>//input[@value='matte' and @name='paperfinish']</location>
+        </locator>
+        <locator id="DEP-LOW_RES_ICON_DEDICATED_PAGE">
+            <location>//a[contains(@href,'openResolutionWarningWindow')]/img[contains(@src,'triangle.')]</location>
+        </locator>
+        
+    <!-- LOW-RESOLUTION POPUP -->
+        <locator id="CLOSE_BTN_LOW_RES_POUP">
+            <location>//img[@alt=' CLOSE ']|//a[@title='Close']</location>
+        </locator>
+    <!-- Cart page -->
+    	
+        <locator id="REMOVE_PRINT_LAYER_NAME">
+            <location>ele_iframeRemoveItemLayer</location>
+        </locator>
+        <locator id="REMOVE_FROM_CART_REMOVE_LAYER">
+            <location>//img[@alt='Remove from Cart']</location>
+        </locator>
+        <locator id="ORDER_TOTAL_CART_PAGE">
+            <location>//tr[td[contains(text(),'Subtotal')]]//span[@id='order_total_price']/span</location>
+        </locator>
+        <locator id="PRINTS_SIZE_CART_PAGE">
+            <location>//td[@class='cart_price print_type']</location>
+        </locator>
+        <locator id="PRINTS_QUANTITY_CART_PAGE">
+            <location>//tr[contains(@class,'cart-rep-4x6')]//td[@class='newcart-quantity']/div</location>
+        </locator>
+        <locator id="4X6_PRINTS_PRICE_CART_PAGE">
+            <location>//tr[td[contains(@class,'newcart-description')]//div[contains(text(),'Print(s)')]]//td[@class='newcart-total']</location>
+        </locator>
+        <locator id="11X14_POSTERS_LINK_CART_PAGE">
+            <location>//span[contains(text(),'11x14 Poster(s)')]</location>
+        </locator>
+        <locator id="11X14_POSTER_PRICE_CART_PAGE">
+            <location>//tr[td[@class='newcart-description']//span[contains(text(),'11x14 Poster(s)')]]//td[@class='newcart-fullprice']</location>
+        </locator>
+        <locator id="11X14_POSTER_QUANTITY_CART_PAGE">
+            <location>//tr[td[@class='newcart-description']//span[contains(text(),'11x14 Poster(s)')]]//td[@class='newcart-quantity']/input[contains(@id,'PRD_POS_poster;11x14')]</location>
+        </locator>
+        <locator id="TRUE_DIGITAL_PRINTS_CHKBOX_CART_PAGE">
+            <location>//input[@type='checkbox' and contains(@onclick,'convertToTrueDigitalPrints(this)')]</location>
+        </locator>
+        <locator id="TDP_LINK_CART_PAGE">
+            <location>//*[text()='True Digital 4x5.3 prints']|//*[text()='4x5.3 True Digital']</location>
+        </locator>
+        <locator id="TDP_OVERLAY_NAME">
+            <location>ele_iframeTrueDigitalPopup</location>
+        </locator>
+        <locator id="CLOSE_BTN_TDP_OVERLAY">
+            <location>//a[contains(@href,'CloseDigitalInfoPopup')]/img</location>
+        </locator>
+        
+    <!-- Review Order page (After Cart) -->
+        <locator id="4X6_PRINTS_PRICE_REVIEW_ORDER_PAGE">
+            <location>//tr[td[contains(text(),'4x6 print(s)') or contains(text(),'4x6 Print(s)')]]/td[3]</location>
+        </locator>
+        <locator id="EDIT_PRINTS_ORDER_LINK_REVIEW_PAGE">
+            <location>link=Edit Prints and Sizes</location>
+        </locator>
+    
+    <!-- CSR Issue credit -->
+        <locator id="CSR_4X6PRINT_TFLD_CREDITS">
+            <location>//tr[td[contains(text(),'4x6 print(s)') or contains(text(),'4x6 Print(s)')]]/td/input</location>
+        </locator>
+    
+    <!-- CSR Issue refund page -->
+        <locator id="CSR_4X6_REFUND_TXTFLD">
+            <location>//tr[td/font[contains(text(),'4x6 print(s)') or contains(text(),'4x6 Print(s)')]]/td/input</location>
+        </locator>
+    	<locator id="CSR_4X6PRINTS_YES_CHKBOX">
+            <location>//tr[td/font[contains(text(),'4x6 print(s)') or contains(text(),'4x6 Print(s)')]]/td/input[@type='checkbox']</location>
+        </locator>
+        
+        
+        
+    </locators>
+</inlocators>
